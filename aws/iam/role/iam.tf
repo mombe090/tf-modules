@@ -1,15 +1,15 @@
 locals {
   policies = [
     {
-      effect = "Allow"
-      actions = [ "lambda:InvokeFunction" ]
-      resources = [ "arn:aws:lambda:${var.aws_region}:${var.aws_account_id}:function:${local.get_acount_info_lambda_name}" ]
-      principals = [ "apigateway.amazonaws.com" ]
-      conditions = [  {
-        test = "ArnLike"
-        variable = "AWS:SourceArn"  # "aws:SourceArn" also works
-        values = [ "arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:*/*/*/*" ]
-    }
+      effect     = "Allow"
+      actions    = ["lambda:InvokeFunction"]
+      resources  = ["arn:aws:lambda:${var.aws_region}:${var.aws_account_id}:function:${local.get_acount_info_lambda_name}"]
+      principals = ["apigateway.amazonaws.com"]
+      conditions = [{
+        test     = "ArnLike"
+        variable = "AWS:SourceArn" # "aws:SourceArn" also works
+        values   = ["arn:aws:execute-api:${var.aws_region}:${var.aws_account_id}:*/*/*/*"]
+        }
       ]
     }
   ]
