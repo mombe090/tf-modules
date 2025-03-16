@@ -13,6 +13,7 @@ on:
       - '.github/workflows/release.yaml'
 permissions:
   contents: write
+
 jobs:
   release:
     name: Release
@@ -32,3 +33,5 @@ jobs:
             @semantic-release/changelog@6.0.3
             @semantic-release/git@10.0.1
             conventional-changelog-conventionalcommits@7.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
