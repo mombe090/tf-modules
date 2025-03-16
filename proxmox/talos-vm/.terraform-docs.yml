@@ -1,0 +1,52 @@
+formatter: "markdown table"
+
+header-from: _header.txt
+footer-from: _footer.txt
+
+recursive:
+  enabled: false
+  path: modules
+  include-main: true
+
+sections:
+  hide: []
+  show: []
+
+content: |-
+  {{ .Header }}
+  {{ .Requirements }}
+  {{ .Providers }}
+
+  {{ .Inputs }}
+  {{ .Outputs }}
+
+  {{ .Modules }}
+  {{ .Resources }}
+
+  {{ .Footer }}
+
+output:
+  file: "Readme.md"
+  mode: replace
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    {{ .Content }}
+    <!-- END_TF_DOCS -->
+
+sort:
+  enabled: true
+  by: required
+
+settings:
+  anchor: true
+  color: true
+  default: true
+  description: true
+  escape: true
+  hide-empty: false
+  html: true
+  indent: 2
+  lockfile: true
+  read-comments: true
+  required: true
+  type: true
