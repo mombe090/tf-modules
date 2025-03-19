@@ -40,5 +40,6 @@ jobs:
         with:
           working-dir: ./proxmox/vm,./talos
           git-push: 'true'
+          git-push-user-name: 'github-actions[bot]'
         env:
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
