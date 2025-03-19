@@ -39,6 +39,7 @@ jobs:
         uses: terraform-docs/gh-actions@v1.3.0
         with:
           working-dir: ./proxmox/vm,./talos
+          config-file: '.terraform-docs.yml'
           git-push: 'true'
           git-push-user-name: 'mombe090'
         env:
