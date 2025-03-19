@@ -34,3 +34,8 @@ jobs:
             conventional-changelog-conventionalcommits@7.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+
+      - name: Generate TF Docs
+        uses: terraform-docs/gh-actions@v1.3.0
+        with:
+          working-dir: ./proxmox/vm,talos
