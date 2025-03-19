@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.0](https://github.com/mombe090/tf-modules/compare/v1.5.0...v1.6.0) (2025-03-19)
+
+
+### Features
+
+* add _footer and _header ([159a523](https://github.com/mombe090/tf-modules/commit/159a523f7e5df4806e1beb5e66b8e62a7ec4895e))
+
 ## [1.5.0](https://github.com/mombe090/tf-modules/compare/v1.4.0...v1.5.0) (2025-03-19)
 
 
