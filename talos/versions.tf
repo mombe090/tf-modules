@@ -1,6 +1,6 @@
 # Ajout du provider bgp, ajuster s'il y a une nouvelle version
 terraform {
-  required_version = ">= 1.0.0" #version de terraform supérieur ou égale à 1.10.0
+  required_version = ">= 1.0.0"
   required_providers {
     proxmox = {
       source  = "bpg/proxmox"

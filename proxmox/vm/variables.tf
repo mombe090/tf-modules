@@ -54,13 +54,13 @@ variable "pve_node" {
 variable "cores" {
   type        = number
   description = "Number of CPU cores for this VM"
-  default     = 2
+  default     = 4
 }
 
 variable "memory" {
   type        = number
   description = "Amount of memory for this VM"
-  default     = 2048
+  default     = 4096
 }
 
 variable "disk_size" {

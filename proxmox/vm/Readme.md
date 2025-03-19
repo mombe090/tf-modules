@@ -35,7 +35,12 @@
 
 | Name | Description |
 |------|-------------|
-| <a name="output_outputs"></a> [outputs](#output\_outputs) | Outputs of the proxmox\_virtual\_environment\_vm resource |
+| <a name="output_agent"></a> [agent](#output\_agent) | Agent enabled |
+| <a name="output_network_config"></a> [network\_config](#output\_network\_config) | n/a |
+| <a name="output_vm_cpu_count"></a> [vm\_cpu\_count](#output\_vm\_cpu\_count) | Number of CPU cores |
+| <a name="output_vm_disk_size"></a> [vm\_disk\_size](#output\_vm\_disk\_size) | Size of the VM disk |
+| <a name="output_vm_id"></a> [vm\_id](#output\_vm\_id) | ID of the VM |
+| <a name="output_vm_memory"></a> [vm\_memory](#output\_vm\_memory) | Amount of memory allocated to the VM |
 
 ## Modules
 

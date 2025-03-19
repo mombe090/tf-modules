@@ -1,5 +1,5 @@
 resource "proxmox_virtual_environment_vm" "this" {
-  vm_id = var.vm_id == null ? null : var.vm_id
+  vm_id = var.vm_id
 
   name = var.vm_name
 
@@ -36,7 +36,7 @@ resource "proxmox_virtual_environment_vm" "this" {
     datastore_id = var.vm_store_id
     ip_config {
       ipv4 {
-        address = var.vm_ip_address
+        address = "${var.vm_ip_address}/24"
         gateway = var.vm_gateway_address
       }
       ipv6 {
