@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/mombe090/tf-modules/compare/v1.1.0...v1.2.0) (2025-03-19)
+
+
+### Features
+
+* add terraform docs ([d28609c](https://github.com/mombe090/tf-modules/commit/d28609c5d1416effc29d3808415d13aa310b95c2))
+
 ## [1.1.0](https://github.com/mombe090/tf-modules/compare/v1.0.0...v1.1.0) (2025-03-19)
 
 
