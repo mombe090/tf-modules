@@ -38,4 +38,4 @@ jobs:
       - name: Generate TF Docs
         uses: terraform-docs/gh-actions@v1.3.0
         with:
-          working-dir: ./proxmox/vm,talos
+          working-dir: ./proxmox/vm,./talos
