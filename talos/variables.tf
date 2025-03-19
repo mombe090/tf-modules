@@ -24,6 +24,30 @@ variable "talos_tools_extensions" {
   ]
 }
 
+variable "cluster_name" {
+  type        = string
+  description = "Name of the Talos cluster"
+}
+
+variable "nodes" {
+  type = map(object({
+    ip   = string
+    role = string
+  }))
+  description = "Nodes of the Talos cluster"
+}
+
+variable "control_plane_ip" {
+  type        = string
+  description = "Name of the control plane IP"
+}
+
+variable "talos_config_patches" {
+  type        = list(string)
+  description = "Talos machine config patches"
+  default     = []
+}
+
 variable "proxmox_server_ip_adresse" {
   type        = string
   description = "Proxmox server IP adresse"

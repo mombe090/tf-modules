@@ -1,12 +1,11 @@
 locals {
-  proxmox_server_ip = "192.168.10.250"
+  proxmox_server_ip = "192.168.10.253" # Replace with your Proxmox server IP
 
   gateaway_address = "192.168.10.1"
-  nameservers      = ["192.168.10.100", "192.168.10.200"]
-  search_domain    = "example.com"
+  nameservers      = ["8.8.8.8", "1.1.1.1"] # Replace with your DNS servers
+  search_domain    = ""                     # Replace with your search domain
 
   tags = ["talos-linux", "kubernetes"]
-
 }
 
 provider "proxmox" {
@@ -20,12 +19,14 @@ provider "proxmox" {
 }
 
 module "proxmox_vm" {
+  count = 3
+
   source = "../.."
 
-  vm_id   = 100
-  vm_name = "talos-linux-vm"
+  vm_id   = 100 + count.index
+  vm_name = "talos-linux-vm-${count.index}"
 
-  vm_ip_address      = "192.168.10.1"
+  vm_ip_address      = "192.168.10.1${count.index + 1}"
   vm_nameservers     = local.nameservers
   vm_search_domain   = local.search_domain
   vm_gateway_address = local.gateaway_address
