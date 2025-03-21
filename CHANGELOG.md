@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.0](https://github.com/mombe090/tf-modules/compare/v1.9.0...v1.10.0) (2025-03-21)
+
+
+### Features
+
+* add integration tests ([57e2a22](https://github.com/mombe090/tf-modules/commit/57e2a22dc57fe5388e1c053281d75bf0874eda0c))
+
+
+### Bug Fixes
+
+* module folder ([458384f](https://github.com/mombe090/tf-modules/commit/458384fc4e32e36b6382f8cf16ce58c01f974d50))
+
 ## [1.9.0](https://github.com/mombe090/tf-modules/compare/v1.8.0...v1.9.0) (2025-03-19)
 
 

@@ -10,7 +10,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | 0.73.1 |
+| <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | >= 0.68.1 |
 
 ## Inputs
 
@@ -41,6 +41,7 @@
 | <a name="output_vm_disk_size"></a> [vm\_disk\_size](#output\_vm\_disk\_size) | Size of the VM disk |
 | <a name="output_vm_id"></a> [vm\_id](#output\_vm\_id) | ID of the VM |
 | <a name="output_vm_memory"></a> [vm\_memory](#output\_vm\_memory) | Amount of memory allocated to the VM |
+| <a name="output_vm_name"></a> [vm\_name](#output\_vm\_name) | Name of the VM |
 
 ## Modules
 
@@ -57,19 +58,19 @@ No modules.
 ```hcl
 module "proxmox_vm" {
   source = "../.."
-  network_config = {
-    gateway : "192.168.10.1"
-    domain : "example.com"
-    nameservers : [
-      "192.168.10.100",
-      "192.168.10.200",
-      "1.1.1.1"
-    ]
+
+  vm_id   = 100
+  vm_name = "talos-linux-vm"
+
+  vm_ip_address      = "192.168.10.11"
+  vm_nameservers     = []
+  vm_search_domain   = ""
+  vm_gateway_address = "192.168.10.1"
+
+  tags = {
+   "env" = "dev"
   }
-  tags = ["talos-linux", "kubernetes"]
-  vm_id  = 100
-  vm_ip_address = "192.168.10.2"
-  vm_name = "test-vm"
 }
+
 ```
 <!-- END_TF_DOCS -->
