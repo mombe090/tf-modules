@@ -19,3 +19,7 @@ output "k8s_config" {
   value       = talos_cluster_kubeconfig.this.kubeconfig_raw
   sensitive   = true
 }
+
+/*output "talos_cluster" {
+  value = talos_cluster_kubeconfig.this.kubeconfig_raw.
+}*/

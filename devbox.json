@@ -1,14 +1,16 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.0/.schema/devbox.schema.json",
   "packages": [
-    "pre-commit@latest",
-    "terraform@latest",
-    "envdir@latest",
-    "tflint@latest"
+    "pre-commit@4.0.1",
+    "terraform@1.11.2",
+    "envdir@1.0.0",
+    "tflint@0.55.1",
+    "go-task@3.41.0",
+    "git@latest"
   ],
   "shell": {
     "init_hook": [
-      "echo 'Welcome to devbox!' > /dev/null"
+      "direnv allow . || true"
     ],
     "scripts": {
       "test": [
