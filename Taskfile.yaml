@@ -1,0 +1,15 @@
+version: "3"
+
+includes:
+  talos:
+    taskfile: ./src/talos/Taskfile.yaml
+    dir: ./src/talos
+  proxmox:
+    taskfile: ./src/proxmox/vm/Taskfile.yaml
+    dir: ./src/proxmox/vm
+
+
+tasks:
+  default:
+    silent: true
+    cmds: ["task -l"]

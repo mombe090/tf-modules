@@ -3,6 +3,11 @@ output "vm_id" {
   description = "ID of the VM"
 }
 
+output "vm_name" {
+  value       = proxmox_virtual_environment_vm.this.name
+  description = "Name of the VM"
+}
+
 output "agent" {
   value       = proxmox_virtual_environment_vm.this.agent[0].enabled
   description = "Agent enabled"
