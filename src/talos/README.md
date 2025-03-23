@@ -21,13 +21,12 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Name of the Talos cluster | `string` | n/a | yes |
 | <a name="input_control_plane_ip"></a> [control\_plane\_ip](#input\_control\_plane\_ip) | Name of the control plane IP | `string` | n/a | yes |
-| <a name="input_nodes"></a> [nodes](#input\_nodes) | Nodes of the Talos cluster | <pre>map(object({<br/>    ip   = string<br/>    role = string<br/>  }))</pre> | n/a | yes |
+| <a name="input_nodes"></a> [nodes](#input\_nodes) | Nodes of the Talos cluster with their IP, role and patches | <pre>map(object({<br/>    ip      = string<br/>    role    = string<br/>    patches = list(string)<br/>  }))</pre> | n/a | yes |
 | <a name="input_proxmox_server_ip_adresse"></a> [proxmox\_server\_ip\_adresse](#input\_proxmox\_server\_ip\_adresse) | Proxmox server IP adresse | `string` | n/a | yes |
 | <a name="input_proxmox_server_port"></a> [proxmox\_server\_port](#input\_proxmox\_server\_port) | Proxmox server port | `number` | `8006` | no |
 | <a name="input_proxmox_user"></a> [proxmox\_user](#input\_proxmox\_user) | User for Proxmox server with admin rights | `string` | `"root"` | no |
 | <a name="input_proxmox_user_ssh_key_path"></a> [proxmox\_user\_ssh\_key\_path](#input\_proxmox\_user\_ssh\_key\_path) | Path to the SSH key for the Proxmox user | `string` | `"~/.ssh/id_ed25519"` | no |
 | <a name="input_refresh_talos_image_in_proxmox"></a> [refresh\_talos\_image\_in\_proxmox](#input\_refresh\_talos\_image\_in\_proxmox) | Refresh Talos image in Proxmox (By default false, no need to download the image every time) | `bool` | `true` | no |
-| <a name="input_talos_config_patches"></a> [talos\_config\_patches](#input\_talos\_config\_patches) | Talos machine config patches | `list(string)` | `[]` | no |
 | <a name="input_talos_image_version"></a> [talos\_image\_version](#input\_talos\_image\_version) | Talos image version | `string` | `"v1.9.4"` | no |
 | <a name="input_talos_tools_extensions"></a> [talos\_tools\_extensions](#input\_talos\_tools\_extensions) | Talos tools extensions | `list(string)` | <pre>[<br/>  "qemu-guest-agent",<br/>  "iscsi-tools",<br/>  "util-linux-tools"<br/>]</pre> | no |
 ## Outputs
