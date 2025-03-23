@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.0](https://github.com/mombe090/tf-modules/compare/v1.11.0...v1.12.0) (2025-03-23)
+
+
+### Features
+
+* default for dns servers ([9566372](https://github.com/mombe090/tf-modules/commit/9566372735aac25c185d63b26d5267a7bb9aca8e))
+
 ## [1.11.0](https://github.com/mombe090/tf-modules/compare/v1.10.0...v1.11.0) (2025-03-23)
 
 
