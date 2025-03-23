@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.0](https://github.com/mombe090/tf-modules/compare/v1.12.0...v1.13.0) (2025-03-23)
+
+
+### Features
+
+* add health check before releasing the apply ([b2c3eb7](https://github.com/mombe090/tf-modules/commit/b2c3eb7aa31eb18e16360e9c3dcba87484bc1c57))
+
 ## [1.12.0](https://github.com/mombe090/tf-modules/compare/v1.11.0...v1.12.0) (2025-03-23)
 
 
