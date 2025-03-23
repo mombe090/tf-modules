@@ -33,6 +33,7 @@
 
 | Name | Description |
 |------|-------------|
+| <a name="output_health_check"></a> [health\_check](#output\_health\_check) | Talos health check output |
 | <a name="output_k8s_config"></a> [k8s\_config](#output\_k8s\_config) | Kubernetes client configuration containing the kubeconfig |
 | <a name="output_latest_talos_stable_version"></a> [latest\_talos\_stable\_version](#output\_latest\_talos\_stable\_version) | Get the latest Talos stable version |
 | <a name="output_talos_client_config"></a> [talos\_client\_config](#output\_talos\_client\_config) | Talos client configuration containing the talosconfig |
