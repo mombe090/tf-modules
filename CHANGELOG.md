@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.11.0](https://github.com/mombe090/tf-modules/compare/v1.10.0...v1.11.0) (2025-03-23)
+
+
+### Features
+
+* migrate config patches to nodes variable ([e8bad1a](https://github.com/mombe090/tf-modules/commit/e8bad1a16ba7dc39ec0e966ce58be36f53f7519c))
+
 ## [1.10.0](https://github.com/mombe090/tf-modules/compare/v1.9.0...v1.10.0) (2025-03-21)
 
 
