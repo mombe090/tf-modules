@@ -64,6 +64,6 @@ resource "talos_cluster_kubeconfig" "this" {
 
   depends_on = [
     talos_machine_bootstrap.this,
-    data.talos_cluster_health.this
+    #data.talos_cluster_health.this
   ]
 }
