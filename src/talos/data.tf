@@ -51,10 +51,10 @@ data "talos_cluster_health" "this" {
     talos_machine_bootstrap.this
   ]
   client_configuration = data.talos_client_configuration.this.client_configuration
-  control_plane_nodes  = [var.control_plane_ip]
-  worker_nodes         = [for k, v in var.nodes : v.ip if v.role == "controlplane"]
+  control_plane_nodes  = [for k, v in var.nodes : v.ip if v.role == "controlplane"]
+  worker_nodes         = [for k, v in var.nodes : v.ip if v.role != "controlplane"]
   endpoints            = data.talos_client_configuration.this.endpoints
   timeouts = {
-    read = "8m"
+    read = "15m"
   }
 }
