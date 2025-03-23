@@ -20,6 +20,8 @@ output "k8s_config" {
   sensitive   = true
 }
 
-/*output "talos_cluster" {
-  value = talos_cluster_kubeconfig.this.kubeconfig_raw.
-}*/
+output "health_check" {
+  description = "Talos health check output"
+  value       = data.talos_cluster_health.this.client_configuration
+  sensitive   = true
+}
