@@ -31,21 +31,16 @@ variable "cluster_name" {
 
 variable "nodes" {
   type = map(object({
-    ip   = string
-    role = string
+    ip      = string
+    role    = string
+    patches = list(string)
   }))
-  description = "Nodes of the Talos cluster"
+  description = "Nodes of the Talos cluster with their IP, role and patches"
 }
 
 variable "control_plane_ip" {
   type        = string
   description = "Name of the control plane IP"
-}
-
-variable "talos_config_patches" {
-  type        = list(string)
-  description = "Talos machine config patches"
-  default     = []
 }
 
 variable "proxmox_server_ip_adresse" {
