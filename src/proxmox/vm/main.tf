@@ -46,7 +46,7 @@ resource "proxmox_virtual_environment_vm" "this" {
 
     dns {
       domain  = var.vm_search_domain
-      servers = var.vm_nameservers
+      servers = length(var.vm_nameservers) == 0 ? ["8.8.8.8", "8.8.4.4"] : var.vm_nameservers
     }
   }
 
