@@ -43,3 +43,18 @@ data "talos_machine_configuration" "this" {
   cluster_endpoint = "https://${var.control_plane_ip}:6443"
   machine_secrets  = talos_machine_secrets.this.machine_secrets
 }
+
+#Get cluster health before releasing terraform apply
+data "talos_cluster_health" "this" {
+  depends_on = [
+    talos_machine_configuration_apply.this,
+    talos_machine_bootstrap.this
+  ]
+  client_configuration = data.talos_client_configuration.this.client_configuration
+  control_plane_nodes  = [var.control_plane_ip]
+  worker_nodes         = [for k, v in var.nodes : v.ip if v.role == "controlplane"][0]
+  endpoints            = data.talos_client_configuration.this.endpoints
+  timeouts = {
+    read = "8m"
+  }
+}

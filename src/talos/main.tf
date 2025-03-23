@@ -49,18 +49,21 @@ resource "talos_machine_configuration_apply" "this" {
 }
 
 resource "talos_machine_bootstrap" "this" {
-  depends_on           = [talos_machine_configuration_apply.this]
   node                 = [for k, v in var.nodes : v.ip if v.role == "controlplane"][0]
   client_configuration = talos_machine_secrets.this.client_configuration
+
+  depends_on = [talos_machine_configuration_apply.this]
 }
 
 resource "talos_cluster_kubeconfig" "this" {
-  depends_on = [
-    talos_machine_bootstrap.this
-  ]
   node                 = [for k, v in var.nodes : v.ip if v.role == "controlplane"][0]
   client_configuration = talos_machine_secrets.this.client_configuration
   timeouts = {
     read = "1m"
   }
+
+  depends_on = [
+    talos_machine_bootstrap.this,
+    data.talos_cluster_health.this
+  ]
 }
