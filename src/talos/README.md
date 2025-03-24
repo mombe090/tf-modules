@@ -27,8 +27,8 @@
 | <a name="input_proxmox_user"></a> [proxmox\_user](#input\_proxmox\_user) | User for Proxmox server with admin rights | `string` | `"root"` | no |
 | <a name="input_proxmox_user_ssh_key_path"></a> [proxmox\_user\_ssh\_key\_path](#input\_proxmox\_user\_ssh\_key\_path) | Path to the SSH key for the Proxmox user | `string` | `"~/.ssh/id_ed25519"` | no |
 | <a name="input_refresh_talos_image_in_proxmox"></a> [refresh\_talos\_image\_in\_proxmox](#input\_refresh\_talos\_image\_in\_proxmox) | Refresh Talos image in Proxmox (By default false, no need to download the image every time) | `bool` | `true` | no |
-| <a name="input_talos_image_version"></a> [talos\_image\_version](#input\_talos\_image\_version) | Talos image version | `string` | `"v1.9.4"` | no |
-| <a name="input_talos_tools_extensions"></a> [talos\_tools\_extensions](#input\_talos\_tools\_extensions) | Talos tools extensions | `list(string)` | <pre>[<br/>  "qemu-guest-agent",<br/>  "iscsi-tools",<br/>  "util-linux-tools"<br/>]</pre> | no |
+| <a name="input_talos_image_version"></a> [talos\_image\_version](#input\_talos\_image\_version) | Talos image version | `string` | `"v1.9.5"` | no |
+| <a name="input_talos_tools_extensions"></a> [talos\_tools\_extensions](#input\_talos\_tools\_extensions) | Talos tools extensions. example: https://factory.talos.dev/?arch=amd64&platform=nocloud&target=cloud&version=1.9.5 | `list(string)` | <pre>[<br/>  "qemu-guest-agent",<br/>  "iscsi-tools",<br/>  "util-linux-tools"<br/>]</pre> | no |
 ## Outputs
 
 | Name | Description |
