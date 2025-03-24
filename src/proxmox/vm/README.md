@@ -52,9 +52,9 @@ No modules.
 |------|------|
 | [proxmox_virtual_environment_vm.this](https://registry.terraform.io/providers/bpg/proxmox/latest/docs/resources/virtual_environment_vm) | resource |
 
-# Exemples :
+# Usage Sample :
 
-## Creation d'une machine virtuelle pour Talos :
+## Virtual Machine creation  :
 ```hcl
 module "proxmox_vm" {
   source = "../.."
@@ -67,9 +67,7 @@ module "proxmox_vm" {
   vm_search_domain   = ""
   vm_gateway_address = "192.168.10.1"
 
-  tags = {
-   "env" = "dev"
-  }
+  tags = ["talos", "linux"]
 }
 
 ```

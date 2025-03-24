@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.15.0](https://github.com/mombe090/tf-modules/compare/v1.14.1...v1.15.0) (2025-03-24)
+
+
+### Features
+
+* add some documentation ([683fd54](https://github.com/mombe090/tf-modules/commit/683fd548ed2c71e89a5793d68a26275cdee13391))
+
 ## [1.14.1](https://github.com/mombe090/tf-modules/compare/v1.14.0...v1.14.1) (2025-03-23)
 
 
