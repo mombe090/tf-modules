@@ -8,11 +8,13 @@ terraform {
   }
 }
 
+# This random integer is used to generate a random number between 115 and 120 to use as last part of the IP address
 resource "random_integer" "this" {
   min = 115
   max = 120
 }
 
+# This random pet is used to generate a random pet name to use as VM name
 resource "random_pet" "this" {
   length = "10"
   prefix = "vm-"

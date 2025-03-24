@@ -1,7 +1,7 @@
 variable "talos_image_version" {
   type        = string
   description = "Talos image version"
-  default     = "v1.9.4"
+  default     = "v1.9.5"
 }
 
 variable "refresh_talos_image_in_proxmox" {
@@ -10,13 +10,9 @@ variable "refresh_talos_image_in_proxmox" {
   default     = true
 }
 
-######################################################################################
-# Talos tools extensions                                                             #
-# https://factory.talos.dev/?arch=amd64&platform=nocloud&target=cloud&version=1.9.5. #
-######################################################################################
 variable "talos_tools_extensions" {
   type        = list(string)
-  description = "Talos tools extensions"
+  description = "Talos tools extensions. example: https://factory.talos.dev/?arch=amd64&platform=nocloud&target=cloud&version=1.9.5"
   default = [
     "qemu-guest-agent",
     "iscsi-tools",

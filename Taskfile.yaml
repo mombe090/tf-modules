@@ -12,4 +12,15 @@ includes:
 tasks:
   default:
     silent: true
-    cmds: ["task -l"]
+    desc: "Run pre-commit hooks formatting, linting, and validate"
+    cmds:
+      - pre-commit run --all-files --color never
+
+
+
+  tf-cleanup:
+    silent: true
+    desc: "Cleanup .terraform directories"
+    cmds:
+      - find ./ -type d -name ".terraform" -exec rm -rf {} +
+      - find ./ -type f -name "*.lock.hcl" -delete
