@@ -1,3 +1,7 @@
+#######################################################################################################################
+# BGP-PROXMOX Provider VM RESOURCE                                                                                    #
+# url: https://search.opentofu.org/provider/bpg/proxmox/latest/docs/resources/virtual_environment_vm#example-usage    #
+#######################################################################################################################
 resource "proxmox_virtual_environment_vm" "this" {
   vm_id = var.vm_id
 

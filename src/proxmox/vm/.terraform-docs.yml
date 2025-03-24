@@ -1,7 +1,7 @@
 formatter: "markdown table"
 
-header-from: _header.txt
-footer-from: _footer.txt
+header-from: ./docs/_header.txt
+footer-from: ./docs/_footer.txt
 
 recursive:
   enabled: false

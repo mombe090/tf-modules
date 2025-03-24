@@ -1,7 +1,32 @@
+#####################################################################################
+# We use Taskfile (https://taskfile.dev/) for automation. You will find more        #
+#####################################################################################
 version: "3"
 
 tasks:
+  ##########################################################################
+  #   Creating some virtual machines using the module for sample purposes  #
+  ##########################################################################
+  vm-create-sample:
+    dir: ./sample/talos
+    cmds:
+      - terraform init
+      - terraform apply -auto-approve
+
+  ##########################################################################
+  #   Testing the module using Terraform Testing Framework                 #
+  #   Terraform: https://developer.hashicorp.com/terraform/language/tests  #
+  #   OpenTofu: https://opentofu.org/docs/cli/commands/test/               #
+  ##########################################################################
   test:
     cmds:
       - terraform init
       - terraform test
+
+  ####################################################################
+  #   Generate Terraform Module Documentation using terraform-docs   #
+  #   https://github.com/terraform-docs/terraform-docs               #
+  ####################################################################
+  generate-docs:
+    cmds:
+      - terraform-docs markdown table --output-file README.md .
