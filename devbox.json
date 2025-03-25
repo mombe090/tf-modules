@@ -7,7 +7,8 @@
     "envdir@1.0.0",
     "tflint@0.55.1",
     "go-task@3.41.0",
-    "git@latest"
+    "git@latest",
+    "terraform-docs@latest"
   ],
   "shell": {
     "init_hook": [
