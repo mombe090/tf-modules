@@ -38,7 +38,7 @@ provider "proxmox" {
 module "proxmox_vm" {
   for_each = local.nodes
 
-  source = "../.."
+  source = "../../../src/proxmox/vm"
 
   vm_id   = each.value.id
   vm_name = each.value.name

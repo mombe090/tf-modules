@@ -16,7 +16,18 @@ tasks:
     cmds:
       - pre-commit run --all-files --color never
 
-
+  ####################################################################
+  #   Generate Terraform Module Documentation using terraform-docs   #
+  #   https://github.com/terraform-docs/terraform-docs               #
+  ####################################################################
+  generate-docs:
+    env:
+      modules: "src/talos src/proxmox/vm src/proxmox/lxc"
+    cmds:
+      - |
+        for module in ${modules}; do
+          terraform-docs --config ./.terraform-docs.yml ${module}
+        done
 
   tf-cleanup:
     silent: true
