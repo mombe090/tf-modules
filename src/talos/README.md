@@ -61,7 +61,7 @@ No modules.
 
 # Exemples :
 
-## Creation d'une cluster Talos avec un patch de configuration e :
+## Kubernetes Cluster Creation with Talos :
 ```hcl
 terraform {
   required_version = ">= 1.9.0"
