@@ -10,7 +10,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | 0.73.2 |
+| <a name="provider_proxmox"></a> [proxmox](#provider\_proxmox) | >= 0.68.1 |
 
 ## Inputs
 
