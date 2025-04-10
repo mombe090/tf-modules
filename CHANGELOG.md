@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.16.0](https://github.com/mombe090/tf-modules/compare/v1.15.0...v1.16.0) (2025-04-10)
+
+
+### Features
+
+* add lxc module ([6572d91](https://github.com/mombe090/tf-modules/commit/6572d9101fcb9e360616ce21920f7f440c840194))
+
 ## [1.15.0](https://github.com/mombe090/tf-modules/compare/v1.14.1...v1.15.0) (2025-03-24)
 
 
