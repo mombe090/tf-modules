@@ -3,7 +3,7 @@ terraform {
 }
 
 module "talos" {
-  source                    = "../"
+  source                    = "../../src/talos"
   cluster_name              = "cluster-sample-1"
   control_plane_ip          = "192.168.10.247"
   proxmox_server_ip_adresse = "192.168.10.253"
