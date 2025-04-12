@@ -19,6 +19,7 @@
 | <a name="input_tags"></a> [tags](#input\_tags) | Resource tags | `list(string)` | n/a | yes |
 | <a name="input_vm_gateway_address"></a> [vm\_gateway\_address](#input\_vm\_gateway\_address) | Gateway IP address of the VM | `string` | n/a | yes |
 | <a name="input_vm_id"></a> [vm\_id](#input\_vm\_id) | Id of the Virtual Machine | `number` | n/a | yes |
+| <a name="input_vm_image_name"></a> [vm\_image\_name](#input\_vm\_image\_name) | Name of the image to use, must be /var/lib/vz/template/iso/ | `string` | n/a | yes |
 | <a name="input_vm_ip_address"></a> [vm\_ip\_address](#input\_vm\_ip\_address) | IP address of the VM | `string` | n/a | yes |
 | <a name="input_vm_name"></a> [vm\_name](#input\_vm\_name) | Name of the virtual machine | `string` | n/a | yes |
 | <a name="input_vm_nameservers"></a> [vm\_nameservers](#input\_vm\_nameservers) | Nameserver IP addresses of the VM | `list(string)` | n/a | yes |
@@ -26,10 +27,11 @@
 | <a name="input_cores"></a> [cores](#input\_cores) | Number of CPU cores for this VM | `number` | `4` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of the VM | `string` | `"Managed by OpenTofu"` | no |
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | Disk size for this VM | `number` | `20` | no |
+| <a name="input_iso_datastore_id"></a> [iso\_datastore\_id](#input\_iso\_datastore\_id) | Storage ID of the ISO | `string` | `"local"` | no |
+| <a name="input_iso_folder"></a> [iso\_folder](#input\_iso\_folder) | Path to the image to use, must be /var/lib/vz/template/iso/ | `string` | `"/var/lib/vz/template/iso"` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | Amount of memory for this VM | `number` | `4096` | no |
 | <a name="input_on_boot"></a> [on\_boot](#input\_on\_boot) | Start VM on boot | `bool` | `true` | no |
 | <a name="input_pve_node"></a> [pve\_node](#input\_pve\_node) | Proxmox node name | `string` | `"pve"` | no |
-| <a name="input_vm_image_name"></a> [vm\_image\_name](#input\_vm\_image\_name) | Name of the image to use, must be /var/lib/vz/template/iso/ | `string` | `"talos-nocloud-amd64-qemu-agent.img"` | no |
 | <a name="input_vm_store_id"></a> [vm\_store\_id](#input\_vm\_store\_id) | Storage ID of the VM | `string` | `"local-lvm"` | no |
 ## Outputs
 
