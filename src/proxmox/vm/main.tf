@@ -19,10 +19,15 @@ resource "proxmox_virtual_environment_vm" "this" {
   on_boot         = var.on_boot
   stop_on_destroy = true
 
+  protection = var.protection
+
   cpu {
     cores = var.cores
-    type  = "x86-64-v2-AES"
+    type  = var.cpu_type
   }
+
+  bios    = var.bios
+  machine = var.machine_type
 
   memory {
     dedicated = var.memory
@@ -30,11 +35,17 @@ resource "proxmox_virtual_environment_vm" "this" {
 
   disk {
     datastore_id = var.vm_store_id
-    file_id      = var.iso_folder == "/var/lib/vz/template/iso" ? "${var.iso_datastore_id}:iso/${var.vm_image_name}" : "${var.iso_datastore_id}:iso/${var.vm_image_name}"
+    file_id      = var.iso_datastore_id == "local" ? "${var.iso_datastore_id}:iso/${var.vm_image_name}" : "${var.iso_datastore_id}:iso/${var.vm_image_name}"
     interface    = "virtio0"
     file_format  = "raw"
     size         = var.disk_size
   }
+
+  /*efi_disk {
+    datastore_id = "local-lvm"
+    file_format  = "raw"
+    type         = "4m"
+  }*/
 
   initialization {
     datastore_id = var.vm_store_id
@@ -52,6 +63,8 @@ resource "proxmox_virtual_environment_vm" "this" {
       domain  = var.vm_search_domain
       servers = length(var.vm_nameservers) == 0 ? ["8.8.8.8", "1.1.1.1"] : var.vm_nameservers
     }
+
+    user_data_file_id = var.cloud_init_file_id
   }
 
   network_device {
@@ -59,6 +72,6 @@ resource "proxmox_virtual_environment_vm" "this" {
   }
 
   operating_system {
-    type = "l26"
+    type = var.operating_system
   }
 }
