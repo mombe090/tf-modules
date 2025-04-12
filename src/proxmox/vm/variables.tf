@@ -19,16 +19,16 @@ variable "vm_image_name" {
   description = "Name of the image to use, must be /var/lib/vz/template/iso/"
 }
 
-variable "iso_folder" {
-  type        = string
-  description = "Path to the image to use, must be /var/lib/vz/template/iso/"
-  default     = "/var/lib/vz/template/iso"
-}
-
 variable "iso_datastore_id" {
   type        = string
   description = "Storage ID of the ISO"
   default     = "local"
+}
+
+variable "cloud_init_file_id" {
+  type        = string
+  description = "Storage ID of the cloud-init file"
+  default     = null
 }
 
 variable "vm_ip_address" {
@@ -68,10 +68,34 @@ variable "cores" {
   default     = 4
 }
 
+variable "cpu_type" {
+  type        = string
+  description = "CPU type for this VM"
+  default     = "x86-64-v2-AES"
+}
+
 variable "memory" {
   type        = number
   description = "Amount of memory for this VM"
   default     = 4096
+}
+
+variable "bios" {
+  type        = string
+  description = "BIOS type for this VM"
+  default     = "ovmf"
+}
+
+variable "machine_type" {
+  type        = string
+  description = "Machine type for this VM"
+  default     = "q35"
+}
+
+variable "operating_system" {
+  type        = string
+  description = "Operating system for this VM"
+  default     = "l26" #Windows win11
 }
 
 variable "disk_size" {
@@ -89,4 +113,10 @@ variable "description" {
 variable "tags" {
   type        = list(string)
   description = "Resource tags"
+}
+
+variable "protection" {
+  type        = bool
+  description = "Enable protection for this VM"
+  default     = false
 }
