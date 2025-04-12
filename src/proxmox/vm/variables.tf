@@ -17,7 +17,18 @@ variable "vm_store_id" {
 variable "vm_image_name" {
   type        = string
   description = "Name of the image to use, must be /var/lib/vz/template/iso/"
-  default     = "talos-nocloud-amd64-qemu-agent.img"
+}
+
+variable "iso_folder" {
+  type        = string
+  description = "Path to the image to use, must be /var/lib/vz/template/iso/"
+  default     = "/var/lib/vz/template/iso"
+}
+
+variable "iso_datastore_id" {
+  type        = string
+  description = "Storage ID of the ISO"
+  default     = "local"
 }
 
 variable "vm_ip_address" {

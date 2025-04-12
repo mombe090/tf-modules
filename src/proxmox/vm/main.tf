@@ -30,7 +30,7 @@ resource "proxmox_virtual_environment_vm" "this" {
 
   disk {
     datastore_id = var.vm_store_id
-    file_id      = "local:iso/${var.vm_image_name}"
+    file_id      = var.iso_folder == "/var/lib/vz/template/iso" ? "${var.iso_datastore_id}:iso/${var.vm_image_name}" : "${var.iso_datastore_id}:iso/${var.vm_image_name}"
     interface    = "virtio0"
     file_format  = "raw"
     size         = var.disk_size
