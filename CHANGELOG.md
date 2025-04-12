@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.18.0](https://github.com/mombe090/tf-modules/compare/v1.17.0...v1.18.0) (2025-04-12)
+
+
+### Features
+
+* add custom data store id ([1ae2869](https://github.com/mombe090/tf-modules/commit/1ae2869986929bfa8cbb751b50508396fb47cf0f))
+
 ## [1.17.0](https://github.com/mombe090/tf-modules/compare/v1.16.0...v1.17.0) (2025-04-10)
 
 
