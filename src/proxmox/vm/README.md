@@ -37,7 +37,7 @@
 | <a name="input_operating_system"></a> [operating\_system](#input\_operating\_system) | Operating system for this VM | `string` | `"l26"` | no |
 | <a name="input_protection"></a> [protection](#input\_protection) | Enable protection for this VM | `bool` | `false` | no |
 | <a name="input_pve_node"></a> [pve\_node](#input\_pve\_node) | Proxmox node name | `string` | `"pve"` | no |
-| <a name="input_vm_store_id"></a> [vm\_store\_id](#input\_vm\_store\_id) | Storage ID of the VM | `string` | `"local-lvm"` | no |
+| <a name="input_vm_datastore_id"></a> [vm\_store\_id](#input\_vm\_store\_id) | Storage ID of the VM | `string` | `"local-lvm"` | no |
 ## Outputs
 
 | Name | Description |

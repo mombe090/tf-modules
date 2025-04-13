@@ -34,21 +34,23 @@ resource "proxmox_virtual_environment_vm" "this" {
   }
 
   disk {
-    datastore_id = var.vm_store_id
+    datastore_id = var.vm_datastore_id
     file_id      = var.iso_datastore_id == "local" ? "${var.iso_datastore_id}:iso/${var.vm_image_name}" : "${var.iso_datastore_id}:iso/${var.vm_image_name}"
     interface    = "virtio0"
     file_format  = "raw"
     size         = var.disk_size
   }
 
-  /*efi_disk {
-    datastore_id = "local-lvm"
-    file_format  = "raw"
-    type         = "4m"
-  }*/
+  dynamic "efi_disk" {
+    for_each = var.enable_efi_disk ? [1] : []
+    content {
+      datastore_id = var.vm_datastore_id
+      type         = var.efi_disk_type
+    }
+  }
 
   initialization {
-    datastore_id = var.vm_store_id
+    datastore_id = var.vm_datastore_id
     ip_config {
       ipv4 {
         address = "${var.vm_ip_address}/24"
