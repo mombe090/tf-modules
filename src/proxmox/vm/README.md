@@ -30,6 +30,8 @@
 | <a name="input_cpu_type"></a> [cpu\_type](#input\_cpu\_type) | CPU type for this VM | `string` | `"x86-64-v2-AES"` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of the VM | `string` | `"Managed by OpenTofu"` | no |
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | Disk size for this VM | `number` | `20` | no |
+| <a name="input_efi_disk_type"></a> [efi\_disk\_type](#input\_efi\_disk\_type) | EFI disk type for this LxC Container | `string` | `"4m"` | no |
+| <a name="input_enable_efi_disk"></a> [enable\_efi\_disk](#input\_enable\_efi\_disk) | Enable EFI disk for this LxC Container | `bool` | `true` | no |
 | <a name="input_iso_datastore_id"></a> [iso\_datastore\_id](#input\_iso\_datastore\_id) | Storage ID of the ISO | `string` | `"local"` | no |
 | <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | Machine type for this VM | `string` | `"q35"` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | Amount of memory for this VM | `number` | `4096` | no |
@@ -37,7 +39,7 @@
 | <a name="input_operating_system"></a> [operating\_system](#input\_operating\_system) | Operating system for this VM | `string` | `"l26"` | no |
 | <a name="input_protection"></a> [protection](#input\_protection) | Enable protection for this VM | `bool` | `false` | no |
 | <a name="input_pve_node"></a> [pve\_node](#input\_pve\_node) | Proxmox node name | `string` | `"pve"` | no |
-| <a name="input_vm_datastore_id"></a> [vm\_store\_id](#input\_vm\_store\_id) | Storage ID of the VM | `string` | `"local-lvm"` | no |
+| <a name="input_vm_datastore_id"></a> [vm\_datastore\_id](#input\_vm\_datastore\_id) | Storage ID of the VM | `string` | `"local-lvm"` | no |
 ## Outputs
 
 | Name | Description |
