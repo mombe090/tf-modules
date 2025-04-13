@@ -8,7 +8,7 @@ variable "vm_name" {
   description = "Name of the virtual machine"
 }
 
-variable "vm_store_id" {
+variable "vm_datastore_id" {
   type        = string
   description = "Storage ID of the VM"
   default     = "local-lvm"
@@ -102,6 +102,18 @@ variable "disk_size" {
   type        = number
   description = "Disk size for this VM"
   default     = 20
+}
+
+variable "efi_disk_type" {
+  type        = string
+  description = "EFI disk type for this LxC Container"
+  default     = "4m"
+}
+
+variable "enable_efi_disk" {
+  type        = bool
+  description = "Enable EFI disk for this LxC Container"
+  default     = true
 }
 
 variable "description" {

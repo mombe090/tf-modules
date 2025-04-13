@@ -32,7 +32,7 @@
 | <a name="input_memory"></a> [memory](#input\_memory) | Amount of memory for this VM | `number` | `4096` | no |
 | <a name="input_on_boot"></a> [on\_boot](#input\_on\_boot) | Start VM on boot | `bool` | `true` | no |
 | <a name="input_pve_node"></a> [pve\_node](#input\_pve\_node) | Proxmox node name | `string` | `"pve"` | no |
-| <a name="input_vm_store_id"></a> [vm\_store\_id](#input\_vm\_store\_id) | Storage ID of the VM | `string` | `"local-lvm"` | no |
+| <a name="input_vm_datastore_id"></a> [vm\_store\_id](#input\_vm\_store\_id) | Storage ID of the VM | `string` | `"local-lvm"` | no |
 ## Outputs
 
 | Name | Description |
