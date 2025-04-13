@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.19.0](https://github.com/mombe090/tf-modules/compare/v1.18.0...v1.19.0) (2025-04-13)
+
+
+### Features
+
+* add properties ([8e6cc46](https://github.com/mombe090/tf-modules/commit/8e6cc46a1d3f582d0b4ca9717bc2c14b5ac62df0))
+
 ## [1.18.0](https://github.com/mombe090/tf-modules/compare/v1.17.0...v1.18.0) (2025-04-12)
 
 

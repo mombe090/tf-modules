@@ -24,13 +24,18 @@
 | <a name="input_vm_name"></a> [vm\_name](#input\_vm\_name) | Name of the virtual machine | `string` | n/a | yes |
 | <a name="input_vm_nameservers"></a> [vm\_nameservers](#input\_vm\_nameservers) | Nameserver IP addresses of the VM | `list(string)` | n/a | yes |
 | <a name="input_vm_search_domain"></a> [vm\_search\_domain](#input\_vm\_search\_domain) | Search domain of the VM | `string` | n/a | yes |
+| <a name="input_bios"></a> [bios](#input\_bios) | BIOS type for this VM | `string` | `"ovmf"` | no |
+| <a name="input_cloud_init_file_id"></a> [cloud\_init\_file\_id](#input\_cloud\_init\_file\_id) | Storage ID of the cloud-init file | `string` | `null` | no |
 | <a name="input_cores"></a> [cores](#input\_cores) | Number of CPU cores for this VM | `number` | `4` | no |
+| <a name="input_cpu_type"></a> [cpu\_type](#input\_cpu\_type) | CPU type for this VM | `string` | `"x86-64-v2-AES"` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description of the VM | `string` | `"Managed by OpenTofu"` | no |
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | Disk size for this VM | `number` | `20` | no |
 | <a name="input_iso_datastore_id"></a> [iso\_datastore\_id](#input\_iso\_datastore\_id) | Storage ID of the ISO | `string` | `"local"` | no |
-| <a name="input_iso_folder"></a> [iso\_folder](#input\_iso\_folder) | Path to the image to use, must be /var/lib/vz/template/iso/ | `string` | `"/var/lib/vz/template/iso"` | no |
+| <a name="input_machine_type"></a> [machine\_type](#input\_machine\_type) | Machine type for this VM | `string` | `"q35"` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | Amount of memory for this VM | `number` | `4096` | no |
 | <a name="input_on_boot"></a> [on\_boot](#input\_on\_boot) | Start VM on boot | `bool` | `true` | no |
+| <a name="input_operating_system"></a> [operating\_system](#input\_operating\_system) | Operating system for this VM | `string` | `"l26"` | no |
+| <a name="input_protection"></a> [protection](#input\_protection) | Enable protection for this VM | `bool` | `false` | no |
 | <a name="input_pve_node"></a> [pve\_node](#input\_pve\_node) | Proxmox node name | `string` | `"pve"` | no |
 | <a name="input_vm_store_id"></a> [vm\_store\_id](#input\_vm\_store\_id) | Storage ID of the VM | `string` | `"local-lvm"` | no |
 ## Outputs
