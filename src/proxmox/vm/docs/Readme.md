@@ -30,7 +30,7 @@
 | <a name="input_on_boot"></a> [on\_boot](#input\_on\_boot) | Start VM on boot | `bool` | `true` | no |
 | <a name="input_pve_node"></a> [pve\_node](#input\_pve\_node) | Proxmox node name | `string` | `"pve"` | no |
 | <a name="input_vm_image_name"></a> [vm\_image\_name](#input\_vm\_image\_name) | Name of the image to use, must be /var/lib/vz/template/iso/ | `string` | `"talos-nocloud-amd64-qemu-agent.img"` | no |
-| <a name="input_vm_store_id"></a> [vm\_store\_id](#input\_vm\_store\_id) | Storage ID of the VM | `string` | `"local-lvm"` | no |
+| <a name="input_vm_datastore_id"></a> [vm\_store\_id](#input\_vm\_store\_id) | Storage ID of the VM | `string` | `"local-lvm"` | no |
 ## Outputs
 
 | Name | Description |
