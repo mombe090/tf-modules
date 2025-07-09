@@ -144,8 +144,8 @@ variable "user_account" {
 
   type = map(object({
     username = string
-    password = string
-    keys     = list(string)
+    password = optional(string, null)
+    keys     = optional(list(string), [])
   }))
 
 
