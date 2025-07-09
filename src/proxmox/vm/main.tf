@@ -1,8 +1,3 @@
-data "local_file" "ssh_public_key" {
-  count    = var.ssh_public_key != null ? 1 : 0
-  filename = var.ssh_public_key
-}
-
 #######################################################################################################################
 # BGP-PROXMOX Provider VM RESOURCE                                                                                    #
 # url: https://search.opentofu.org/provider/bpg/proxmox/latest/docs/resources/virtual_environment_vm#example-usage    #
@@ -76,8 +71,8 @@ resource "proxmox_virtual_environment_vm" "this" {
     dynamic "user_account" {
       for_each = var.enable_user_account ? [1] : []
       content {
-        username = var.username
-        keys     = [trimspace(data.local_file.ssh_public_key[0].content)]
+        username = var.user_account.username
+        keys     = var.user_account.keys
       }
     }
   }

@@ -139,14 +139,16 @@ variable "enable_user_account" {
   default     = false
 }
 
-variable "username" {
-  type        = string
-  description = "Username for the VM"
-  default     = "ubuntu"
-}
+variable "user_account" {
+  description = "User account for this VM"
 
-variable "ssh_public_key" {
-  type        = string
-  description = "SSH public key to be added to the VM"
-  default     = null
+  type = map(object({
+    username = string
+    password = string
+    keys     = list(string)
+  }))
+
+
+  sensitive = true
+  default   = null
 }
