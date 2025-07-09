@@ -132,3 +132,21 @@ variable "protection" {
   description = "Enable protection for this VM"
   default     = false
 }
+
+variable "enable_user_account" {
+  type        = bool
+  description = "Enable user account for this VM"
+  default     = false
+}
+
+variable "username" {
+  type        = string
+  description = "Username for the VM"
+  default     = "ubuntu"
+}
+
+variable "ssh_public_key" {
+  type        = string
+  description = "SSH public key to be added to the VM"
+  default     = null
+}
