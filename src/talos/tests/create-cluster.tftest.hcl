@@ -33,7 +33,7 @@ run "create_proxmox_to_host_talos_control_plane" {
 }
 
 run "check_talos_cluster_is_created" {
-//base64decode(talos_cluster_kubeconfig.this.kubernetes_client_configuration.ca_certificate)
+  //base64decode(talos_cluster_kubeconfig.this.kubernetes_client_configuration.ca_certificate)
   variables {
     cluster_name              = "test-cluster"
     control_plane_ip          = var.control_plane_ip
@@ -63,7 +63,7 @@ run "check_talos_cluster_is_created" {
 run "loader" {
   variables {
     kube_url = "https://${var.control_plane_ip}:6443/livez?status=200"
-    kube_ca = "" #TODO
+    kube_ca  = "" #TODO
   }
 
   module {

@@ -1,5 +1,6 @@
 data "local_file" "ssh_public_key" {
-  filename = "/Users/mombe090/.ssh/id_ed25519.pub"
+  count    = var.ssh_public_key != null ? 1 : 0
+  filename = var.ssh_public_key
 }
 
 #######################################################################################################################
@@ -39,7 +40,7 @@ resource "proxmox_virtual_environment_vm" "this" {
 
   disk {
     datastore_id = var.vm_datastore_id
-    file_id      = var.iso_datastore_id == "local" ? "${var.iso_datastore_id}:iso/${var.vm_image_name}" : "${var.iso_datastore_id}:iso/${var.vm_image_name}"
+    file_id      = "${var.iso_datastore_id}:iso/${var.vm_image_name}"
     interface    = "virtio0"
     file_format  = "raw"
     size         = var.disk_size
@@ -72,9 +73,12 @@ resource "proxmox_virtual_environment_vm" "this" {
 
     user_data_file_id = var.cloud_init_file_id
 
-    user_account {
-      username = "ubuntu"
-      keys     = [trimspace(data.local_file.ssh_public_key.content)]
+    dynamic "user_account" {
+      for_each = var.enable_user_account ? [1] : []
+      content {
+        username = var.username
+        keys     = [trimspace(data.local_file.ssh_public_key[0].content)]
+      }
     }
   }
 

@@ -45,13 +45,13 @@ run "create_proxmox_to_host_talos_control_plane" {
 
   # Checking if the VM was created with the passed id
   assert {
-    condition    = proxmox_virtual_environment_vm.this.id == tostring(run.random.integer)
+    condition     = proxmox_virtual_environment_vm.this.id == tostring(run.random.integer)
     error_message = "VM ID is not equal to the last digit of the IP address"
   }
 
   # Checking if the VM was created with the passed id
   assert {
-    condition    = proxmox_virtual_environment_vm.this.name == run.random.pet
+    condition     = proxmox_virtual_environment_vm.this.name == run.random.pet
     error_message = "VM ID is not equal to the generated pet name"
   }
 }
