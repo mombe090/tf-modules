@@ -142,11 +142,11 @@ variable "enable_user_account" {
 variable "user_account" {
   description = "User account for this VM"
 
-  type = map(object({
+  type = object({
     username = string
     password = optional(string, null)
     keys     = optional(list(string), [])
-  }))
+  })
 
 
   sensitive = true
