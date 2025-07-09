@@ -72,6 +72,7 @@ resource "proxmox_virtual_environment_vm" "this" {
       for_each = var.enable_user_account ? [1] : []
       content {
         username = var.user_account.username
+        password = var.user_account.password
         keys     = var.user_account.keys
       }
     }
