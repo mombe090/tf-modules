@@ -1,3 +1,7 @@
+data "local_file" "ssh_public_key" {
+  filename = "~/.ssh/id_ed25519.pub"
+}
+
 #######################################################################################################################
 # BGP-PROXMOX Provider VM RESOURCE                                                                                    #
 # url: https://search.opentofu.org/provider/bpg/proxmox/latest/docs/resources/virtual_environment_vm#example-usage    #
@@ -67,6 +71,11 @@ resource "proxmox_virtual_environment_vm" "this" {
     }
 
     user_data_file_id = var.cloud_init_file_id
+
+    user_account {
+      username = "ubuntu"
+      keys     = [trimspace(data.local_file.ssh_public_key.content)]
+    }
   }
 
   network_device {
