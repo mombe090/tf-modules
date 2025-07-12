@@ -162,6 +162,7 @@ variable "timezone" {
   default     = "America/Toronto"
 }
 
+
 # User Configuration
 variable "ssh_private_key_path" {
   type        = string
@@ -194,7 +195,5 @@ variable "user_config" {
     ssh_public_keys = optional(list(string), [])
   })
   description = "Cloud-init configuration file content"
-  default     = null
-
-  sensitive = true
+  sensitive   = true
 }
