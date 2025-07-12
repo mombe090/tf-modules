@@ -14,6 +14,12 @@ variable "vm_datastore_id" {
   default     = "local-lvm"
 }
 
+variable "vm_image_url" {
+  type        = string
+  description = "URL of the image Download from the internet"
+  default     = null
+}
+
 variable "vm_image_name" {
   type        = string
   description = "Name of the image to use, must be /var/lib/vz/template/iso/"

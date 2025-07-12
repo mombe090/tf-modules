@@ -1,3 +1,14 @@
+resource "proxmox_virtual_environment_download_file" "this" {
+  count = var.vm_image_url != null ? 1 : 0
+
+  content_type = "iso"
+  datastore_id = var.iso_datastore_id
+  node_name    = var.pve_node
+  url          = var.vm_image_url
+  file_name    = basename(var.vm_image_url)
+}
+
+
 #######################################################################################################################
 # BGP-PROXMOX Provider VM RESOURCE                                                                                    #
 # url: https://search.opentofu.org/provider/bpg/proxmox/latest/docs/resources/virtual_environment_vm#example-usage    #
@@ -66,7 +77,7 @@ resource "proxmox_virtual_environment_vm" "this" {
       servers = length(var.vm_nameservers) == 0 ? ["8.8.8.8", "1.1.1.1"] : var.vm_nameservers
     }
 
-    user_data_file_id = var.cloud_init_file_id
+    user_data_file_id = var.vm_image_url != null ? proxmox_virtual_environment_download_file.this[0].id : var.cloud_init_file_id
 
     dynamic "user_account" {
       for_each = var.enable_user_account ? [1] : []
