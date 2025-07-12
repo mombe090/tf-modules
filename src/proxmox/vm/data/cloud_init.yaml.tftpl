@@ -1,0 +1,37 @@
+#cloud-config
+hostname: ${hostname}
+timezone: ${timezone}
+fqdn: ${fully_qualified_domain_name}
+ssh_pwauth: false
+chpasswd:
+  list: |
+    "root:${root_password}"
+  expire: False
+users:
+  - default
+  - name: "${username}"
+    groups:
+      - sudo
+    shell: /bin/bash
+    ssh_authorized_keys:
+    %{ for key in ssh_public_keys ~}
+      - ${trimspace(key)}
+    %{ endfor }
+    lock_passwd: false
+    passwd: "${user_password}"
+    sudo: ALL=(ALL) NOPASSWD:ALL
+package_update: true
+packages:
+  - qemu-guest-agent
+  - net-tools
+  - curl
+write_files:
+  - path: /etc/hosts
+    content: |
+      127.0.0.1 localhost
+      127.0.0.1 ${hostname}
+      127.0.0.1 ${fully_qualified_domain_name}
+runcmd:
+  - systemctl enable qemu-guest-agent
+  - systemctl start qemu-guest-agent
+  - echo "done" > /tmp/cloud-config.done

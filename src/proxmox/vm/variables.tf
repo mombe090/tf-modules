@@ -26,16 +26,28 @@ variable "vm_image_name" {
   default     = null
 }
 
+variable "vm_domain" {
+  description = "Domain for the Virtual Machine"
+  type        = string
+  default     = "example.com"
+}
+
 variable "iso_datastore_id" {
   type        = string
   description = "Storage ID of the ISO"
   default     = "local"
 }
 
-variable "cloud_init_file_id" {
+variable "snippet_datastore_id" {
   type        = string
-  description = "Storage ID of the cloud-init file"
-  default     = null
+  description = "Storage ID of the snippets"
+  default     = "local"
+}
+
+variable "use_cloud_init_file" {
+  type        = bool
+  description = "Use cloud-init file for this VM"
+  default     = false
 }
 
 variable "vm_ip_address" {
@@ -158,4 +170,10 @@ variable "user_account" {
 
   sensitive = true
   default   = null
+}
+
+variable "vm_timezone" {
+  description = "Timezone for the Virtual Machine"
+  type        = string
+  default     = "America/Toronto"
 }
