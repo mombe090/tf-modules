@@ -132,10 +132,6 @@ resource "null_resource" "this" {
     ]
   }
 
-  triggers = {
-    always_run = timestamp()
-  }
-
   depends_on = [
     proxmox_virtual_environment_vm.this
   ]
