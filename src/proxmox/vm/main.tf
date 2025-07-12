@@ -12,6 +12,27 @@ resource "proxmox_virtual_environment_download_file" "this" {
   file_name    = basename(var.vm_image_url)
 }
 
+resource "proxmox_virtual_environment_file" "cloud_init_file" {
+  count = var.use_cloud_init_file ? 1 : 0
+
+  content_type = "snippets"
+  datastore_id = var.snippet_datastore_id
+  node_name    = var.pve_node
+
+  source_raw {
+    data = templatefile("./data/cloud_init.yaml.tftpl", {
+      timezone                    = var.vm_timezone
+      username                    = var.user_account.username
+      hostname                    = var.vm_name
+      fully_qualified_domain_name = "${var.vm_name}.${var.vm_domain}"
+      root_password               = var.user_account.password
+      user_password               = var.user_account.password
+      ssh_public_keys             = var.user_account.keys
+    })
+
+    file_name = "${replace(var.vm_name, "-", "_")}_cloud_init.yaml"
+  }
+}
 
 #######################################################################################################################
 # BGP-PROXMOX Provider VM RESOURCE                                                                                    #
@@ -81,7 +102,7 @@ resource "proxmox_virtual_environment_vm" "this" {
       servers = length(var.vm_nameservers) == 0 ? ["8.8.8.8", "1.1.1.1"] : var.vm_nameservers
     }
 
-    user_data_file_id = var.cloud_init_file_id
+    user_data_file_id = var.use_cloud_init_file ? proxmox_virtual_environment_file.cloud_init_file[0].id : null
 
     dynamic "user_account" {
       for_each = var.enable_user_account ? [1] : []
