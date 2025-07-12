@@ -149,11 +149,15 @@ resource "null_resource" "this" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x install_guest_agent.sh",
-      "./install_guest_agent.sh"
+      "sudo ./install_guest_agent.sh"
     ]
   }
 
   triggers = {
     always_run = timestamp()
   }
+
+  depends_on = [
+    proxmox_virtual_environment_vm.this
+  ]
 }
