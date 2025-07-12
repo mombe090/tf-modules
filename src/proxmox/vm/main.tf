@@ -90,7 +90,7 @@ resource "proxmox_virtual_environment_vm" "this" {
       content {
         username = var.user_config.username
         password = var.user_config.user_password
-        keys     = var.user_config.keys
+        keys     = var.user_config.ssh_public_keys
       }
     }
   }
