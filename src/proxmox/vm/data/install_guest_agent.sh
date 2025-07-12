@@ -69,7 +69,7 @@ install_debian_guest_agent() {
 
     # Update package lists
     log_info "Updating package lists..."
-    apt-get update -qq
+    apt-get update -y
 
     # Install qemu-guest-agent
     log_info "Installing qemu-guest-agent package..."
