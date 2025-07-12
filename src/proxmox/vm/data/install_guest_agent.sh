@@ -67,10 +67,6 @@ is_guest_agent_installed() {
 install_debian_guest_agent() {
     log_info "Installing QEMU Guest Agent on Debian family system..."
 
-    # Update package lists
-    log_info "Updating package lists..."
-    apt update -y
-
     # Install qemu-guest-agent
     log_info "Installing qemu-guest-agent package..."
     apt install -y qemu-guest-agent
