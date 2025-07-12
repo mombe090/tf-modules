@@ -131,3 +131,29 @@ resource "proxmox_virtual_environment_vm" "this" {
     ]
   }
 }
+
+resource "null_resource" "this" {
+  connection {
+    type        = "ssh"
+    host        = var.vm_ip_address
+    user        = var.user_account.username
+    private_key = file(var.ssh_private_key_path)
+    timeout     = "3m"
+  }
+
+  provisioner "file" {
+    source      = "${path.module}/data/install_guest_agent.sh"
+    destination = "install_guest_agent.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x install_guest_agent.sh",
+      "./install_guest_agent.sh"
+    ]
+  }
+
+  triggers = {
+    always_run = timestamp()
+  }
+}
