@@ -23,6 +23,7 @@ variable "vm_image_url" {
 variable "vm_image_name" {
   type        = string
   description = "Name of the image to use, must be /var/lib/vz/template/iso/"
+  default     = null
 }
 
 variable "iso_datastore_id" {
