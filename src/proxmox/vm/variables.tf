@@ -177,3 +177,9 @@ variable "vm_timezone" {
   type        = string
   default     = "America/Toronto"
 }
+
+variable "ssh_private_key_path" {
+  type        = string
+  description = "Path to the private key for the VM"
+  default     = "~/.ssh/id_ed25519"
+}
