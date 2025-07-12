@@ -183,3 +183,22 @@ variable "ssh_private_key_path" {
   description = "Path to the private key for the VM"
   default     = "~/.ssh/id_ed25519"
 }
+
+variable "vm_default_username" {
+  type        = string
+  description = "Default username for the VM"
+  default     = "ubuntu"
+}
+
+variable "vm_default_user_password" {
+  type        = string
+  description = "Default password for the VM"
+  default     = null
+  sensitive   = true
+}
+
+variable "vm_default_user_ssh_keys" {
+  type        = list(string)
+  description = "Default SSH keys for the VM"
+  default     = []
+}
