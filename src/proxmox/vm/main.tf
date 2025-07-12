@@ -105,7 +105,7 @@ resource "proxmox_virtual_environment_vm" "this" {
     user_data_file_id = var.use_cloud_init_file ? proxmox_virtual_environment_file.cloud_init_file[0].id : null
 
     dynamic "user_account" {
-      for_each = var.enable_user_account ? [1] : []
+      for_each = var.enable_user_account && !var.use_cloud_init_file ? [1] : []
       content {
         username = var.user_account.username
         password = var.user_account.password
