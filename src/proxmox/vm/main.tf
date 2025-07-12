@@ -133,6 +133,8 @@ resource "proxmox_virtual_environment_vm" "this" {
 }
 
 resource "null_resource" "this" {
+  count = !var.use_cloud_init_file ? 1 : 0
+
   connection {
     type        = "ssh"
     host        = var.vm_ip_address
