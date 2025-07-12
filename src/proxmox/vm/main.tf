@@ -22,12 +22,12 @@ resource "proxmox_virtual_environment_file" "cloud_init_file" {
   source_raw {
     data = templatefile("./data/cloud_init.yaml.tftpl", {
       timezone                    = var.vm_timezone
-      username                    = var.vm_default_username
+      username                    = var.cloud_init_config.username
       hostname                    = var.vm_name
       fully_qualified_domain_name = "${var.vm_name}.${var.vm_domain}"
-      root_password               = var.vm_default_user_password
-      user_password               = var.vm_default_username
-      ssh_public_keys             = var.vm_default_user_ssh_keys
+      root_password               = var.cloud_init_config.root_password
+      user_password               = var.cloud_init_config.user_password
+      ssh_public_keys             = var.cloud_init_config.ssh_public_keys
     })
 
     file_name = "${replace(var.vm_name, "-", "_")}_cloud_init.yaml"

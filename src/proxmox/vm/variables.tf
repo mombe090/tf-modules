@@ -50,6 +50,17 @@ variable "use_cloud_init_file" {
   default     = false
 }
 
+variable "cloud_init_config" {
+  type = object({
+    username        = string
+    root_password   = optional(string, null)
+    user_password   = optional(string, null)
+    ssh_public_keys = optional(list(string), [])
+  })
+  description = "Cloud-init configuration file content"
+  default     = null
+}
+
 variable "vm_ip_address" {
   type        = string
   description = "IP address of the VM"
@@ -182,23 +193,4 @@ variable "ssh_private_key_path" {
   type        = string
   description = "Path to the private key for the VM"
   default     = "~/.ssh/id_ed25519"
-}
-
-variable "vm_default_username" {
-  type        = string
-  description = "Default username for the VM"
-  default     = "ubuntu"
-}
-
-variable "vm_default_user_password" {
-  type        = string
-  description = "Default password for the VM"
-  default     = null
-  sensitive   = true
-}
-
-variable "vm_default_user_ssh_keys" {
-  type        = list(string)
-  description = "Default SSH keys for the VM"
-  default     = []
 }
