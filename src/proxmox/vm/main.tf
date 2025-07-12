@@ -1,3 +1,7 @@
+################################################################################################################################
+#  Download VM Image from URL to Proxmox Datastore                                                                             #
+#  url: https://search.opentofu.org/provider/bpg/proxmox/latest/docs/resources/virtual_environment_download_file#example-usage #
+################################################################################################################################
 resource "proxmox_virtual_environment_download_file" "this" {
   count = var.vm_image_url != null ? 1 : 0
 
@@ -95,5 +99,14 @@ resource "proxmox_virtual_environment_vm" "this" {
 
   operating_system {
     type = var.operating_system
+  }
+
+  lifecycle {
+    ignore_changes = [
+      cpu[0].cores,
+      disk[0].size,
+      network_device[0].bridge,
+      initialization[0].user_data_file_id,
+    ]
   }
 }
