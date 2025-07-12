@@ -63,9 +63,37 @@ is_guest_agent_installed() {
     esac
 }
 
+# Function to wait for apt lock to be released
+wait_for_apt_lock() {
+    local timeout=300  # 5 minutes timeout
+    local elapsed=0
+    local interval=5
+
+    log_info "Checking for apt lock..."
+
+    while fuser /var/lib/apt/lists/lock >/dev/null 2>&1 || \
+          fuser /var/lib/dpkg/lock >/dev/null 2>&1 || \
+          fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do
+
+        if [ $elapsed -ge $timeout ]; then
+            log_error "Timeout waiting for apt lock to be released after $timeout seconds"
+            exit 1
+        fi
+
+        log_warn "Waiting for apt lock to be released... (${elapsed}s elapsed)"
+        sleep $interval
+        elapsed=$((elapsed + interval))
+    done
+
+    log_info "Apt lock is available"
+}
+
 # Function to install guest agent on Debian family
 install_debian_guest_agent() {
     log_info "Installing QEMU Guest Agent on Debian family system..."
+
+    # Wait for any existing apt processes to finish
+    wait_for_apt_lock
 
     # Update package lists
     log_info "Updating package lists..."
