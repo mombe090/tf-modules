@@ -117,7 +117,7 @@ resource "null_resource" "this" {
     host        = var.ip_address
     user        = var.user_config.username
     private_key = file(var.ssh_private_key_path)
-    timeout     = "3m"
+    timeout     = "5m"
   }
 
   provisioner "file" {
