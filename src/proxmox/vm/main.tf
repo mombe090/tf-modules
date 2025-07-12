@@ -46,7 +46,7 @@ resource "proxmox_virtual_environment_vm" "this" {
 
   disk {
     datastore_id = var.vm_datastore_id
-    file_id      = "${var.iso_datastore_id}:iso/${var.vm_image_name}"
+    file_id      = var.vm_image_url != null ? proxmox_virtual_environment_download_file.this[0].id : "${var.iso_datastore_id}:iso/${var.vm_image_name}"
     interface    = "virtio0"
     file_format  = "raw"
     size         = var.disk_size
@@ -77,7 +77,7 @@ resource "proxmox_virtual_environment_vm" "this" {
       servers = length(var.vm_nameservers) == 0 ? ["8.8.8.8", "1.1.1.1"] : var.vm_nameservers
     }
 
-    user_data_file_id = var.vm_image_url != null ? proxmox_virtual_environment_download_file.this[0].id : var.cloud_init_file_id
+    user_data_file_id = var.cloud_init_file_id
 
     dynamic "user_account" {
       for_each = var.enable_user_account ? [1] : []
