@@ -128,8 +128,6 @@ resource "proxmox_virtual_environment_vm" "this" {
     ignore_changes = [
       # Ignore computed/dynamic attributes that change on every plan
       id,
-      ipv4_addresses,
-      ipv6_addresses,
       mac_addresses,
       network_interface_names,
 
