@@ -1,10 +1,10 @@
 locals {
   ssh_keys = distinct(
     compact(
-      concat(
-        split("\n", data.http.get_github_public_key[0].response_body),
+      sort(concat(
+        [for key in split("\n", trimspace(data.http.get_github_public_key[0].response_body)) : trimspace(key) if trimspace(key) != ""],
         var.user_config.ssh_public_keys
-      )
+      ))
     )
   )
 }
