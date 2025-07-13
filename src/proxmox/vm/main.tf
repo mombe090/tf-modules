@@ -119,12 +119,12 @@ resource "proxmox_virtual_environment_vm" "this" {
     ]
   }
 
-  lifecycle {
+  /*lifecycle {
     ignore_changes = [
       cpu[0].cores,
       disk[0].size,
       network_device[0].bridge,
       initialization[0].user_data_file_id,
     ]
-  }
+  }*/
 }
