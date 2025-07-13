@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Script to install QEMU Guest Agent
+# Script to install QEMU Guest Agent and optionally setup GitHub SSH keys
 # Supports Debian family (Ubuntu, Debian) and Red Hat family (RHEL, CentOS, Fedora, Rocky, AlmaLinux)
+# Usage: ./install_guest_agent.sh [github_username]
 
 set -euo pipefail
 
@@ -88,6 +89,126 @@ wait_for_apt_lock() {
     log_info "Apt lock is available"
 }
 
+# Function to setup SSH keys from GitHub
+setup_github_ssh_keys() {
+    local github_username="$1"
+    local target_user="$2"
+    local user_home
+
+    log_info "Setting up SSH keys for user '$target_user' from GitHub user '$github_username'..."
+
+    # Get the user's home directory
+    if ! user_home=$(getent passwd "$target_user" | cut -d: -f6); then
+        log_error "User '$target_user' does not exist on this system"
+        return 1
+    fi
+
+    # Check if user home directory exists
+    if [[ ! -d "$user_home" ]]; then
+        log_error "Home directory '$user_home' does not exist for user '$target_user'"
+        return 1
+    fi
+
+    # Create .ssh directory if it doesn't exist
+    local ssh_dir="$user_home/.ssh"
+    if [[ ! -d "$ssh_dir" ]]; then
+        log_info "Creating SSH directory: $ssh_dir"
+        mkdir -p "$ssh_dir"
+        chown "$target_user:$(id -gn "$target_user")" "$ssh_dir"
+        chmod 700 "$ssh_dir"
+    fi
+
+    # Download GitHub SSH keys
+    local github_keys_url="https://github.com/$github_username.keys"
+    local temp_keys_file
+    temp_keys_file=$(mktemp)
+
+    log_info "Downloading SSH keys from: $github_keys_url"
+
+    if command -v curl >/dev/null 2>&1; then
+        if ! curl -fsSL "$github_keys_url" -o "$temp_keys_file"; then
+            log_error "Failed to download SSH keys from GitHub for user '$github_username'"
+            rm -f "$temp_keys_file"
+            return 1
+        fi
+    elif command -v wget >/dev/null 2>&1; then
+        if ! wget -q -O "$temp_keys_file" "$github_keys_url"; then
+            log_error "Failed to download SSH keys from GitHub for user '$github_username'"
+            rm -f "$temp_keys_file"
+            return 1
+        fi
+    else
+        log_error "Neither curl nor wget is available to download SSH keys"
+        rm -f "$temp_keys_file"
+        return 1
+    fi
+
+    # Check if we got any keys
+    if [[ ! -s "$temp_keys_file" ]]; then
+        log_error "No SSH keys found for GitHub user '$github_username' or user doesn't exist"
+        rm -f "$temp_keys_file"
+        return 1
+    fi
+
+    # Validate SSH keys format
+    local valid_keys=0
+    while IFS= read -r line; do
+        if [[ -n "$line" && "$line" =~ ^(ssh-rsa|ssh-ed25519|ssh-dss|ecdsa-sha2-nistp256|ecdsa-sha2-nistp384|ecdsa-sha2-nistp521) ]]; then
+            ((valid_keys++))
+        fi
+    done < "$temp_keys_file"
+
+    if [[ $valid_keys -eq 0 ]]; then
+        log_error "No valid SSH keys found in the downloaded content"
+        rm -f "$temp_keys_file"
+        return 1
+    fi
+
+    log_info "Found $valid_keys valid SSH key(s)"
+
+    # Setup authorized_keys file
+    local authorized_keys_file="$ssh_dir/authorized_keys"
+
+    # Create authorized_keys if it doesn't exist
+    if [[ ! -f "$authorized_keys_file" ]]; then
+        touch "$authorized_keys_file"
+        chown "$target_user:$(id -gn "$target_user")" "$authorized_keys_file"
+        chmod 600 "$authorized_keys_file"
+    fi
+
+    # Backup existing authorized_keys
+    if [[ -s "$authorized_keys_file" ]]; then
+        log_info "Backing up existing authorized_keys file"
+        cp "$authorized_keys_file" "${authorized_keys_file}.backup.$(date +%Y%m%d_%H%M%S)"
+    fi
+
+    # Add GitHub keys to authorized_keys (avoiding duplicates)
+    local added_keys=0
+    while IFS= read -r key; do
+        if [[ -n "$key" && "$key" =~ ^(ssh-rsa|ssh-ed25519|ssh-dss|ecdsa-sha2-nistp256|ecdsa-sha2-nistp384|ecdsa-sha2-nistp521) ]]; then
+            # Check if key already exists
+            if ! grep -Fq "$key" "$authorized_keys_file" 2>/dev/null; then
+                echo "$key # Added from GitHub user: $github_username on $(date)" >> "$authorized_keys_file"
+                ((added_keys++))
+            else
+                log_info "SSH key already exists in authorized_keys, skipping duplicate"
+            fi
+        fi
+    done < "$temp_keys_file"
+
+    # Clean up
+    rm -f "$temp_keys_file"
+
+    if [[ $added_keys -gt 0 ]]; then
+        log_info "Successfully added $added_keys SSH key(s) to $authorized_keys_file"
+        log_info "SSH key setup completed for user '$target_user'"
+    else
+        log_warn "No new SSH keys were added (all keys already existed)"
+    fi
+
+    return 0
+}
+
 # Function to install guest agent on Debian family
 install_debian_guest_agent() {
     log_info "Installing QEMU Guest Agent on Debian family system..."
@@ -146,6 +267,30 @@ verify_installation() {
 
 # Main execution
 main() {
+    local github_username=""
+    local target_user="root"  # Default to root user
+
+    # Parse command line arguments
+    if [[ $# -gt 0 ]]; then
+        github_username="$1"
+        log_info "GitHub username provided: $github_username"
+
+        # If a second argument is provided, use it as the target user
+        if [[ $# -gt 1 ]]; then
+            target_user="$2"
+            log_info "Target user specified: $target_user"
+        else
+            # Try to detect a non-root user with a home directory
+            for user in $(getent passwd | awk -F: '$3 >= 1000 && $3 < 65534 {print $1}'); do
+                if [[ -d "/home/$user" ]]; then
+                    target_user="$user"
+                    log_info "Auto-detected target user: $target_user"
+                    break
+                fi
+            done
+        fi
+    fi
+
     log_info "Starting QEMU Guest Agent installation..."
 
     # Check if running as root
@@ -197,6 +342,15 @@ main() {
     verify_installation
 
     log_info "QEMU Guest Agent installation completed successfully!"
+
+    # Setup GitHub SSH keys if username was provided
+    if [[ -n "$github_username" ]]; then
+        if setup_github_ssh_keys "$github_username" "$target_user"; then
+            log_info "SSH key setup completed successfully!"
+        else
+            log_warn "SSH key setup failed, but guest agent installation was successful"
+        fi
+    fi
 }
 
 # Run main function
