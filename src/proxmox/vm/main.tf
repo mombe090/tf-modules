@@ -44,7 +44,7 @@ resource "proxmox_virtual_environment_vm" "this" {
   node_name = var.pve_node
   agent { enabled = true }
   description     = var.description
-  tags            = var.tags
+  tags            = sort(var.tags)
   on_boot         = var.on_boot
   stop_on_destroy = true
   protection      = var.protection
