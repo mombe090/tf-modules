@@ -129,7 +129,6 @@ resource "proxmox_virtual_environment_vm" "this" {
       # Ignore computed/dynamic attributes that change on every plan
       id,
       mac_addresses,
-      network_interface_names,
 
       # Ignore sensitive user account changes to prevent forced replacement
       initialization[0].user_account[0].keys,
