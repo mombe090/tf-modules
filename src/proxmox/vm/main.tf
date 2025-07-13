@@ -99,19 +99,6 @@ resource "proxmox_virtual_environment_vm" "this" {
     type = var.operating_system
   }
 
-  lifecycle {
-    ignore_changes = [
-      cpu[0].cores,
-      disk[0].size,
-      network_device[0].bridge,
-      initialization[0].user_data_file_id,
-    ]
-  }
-}
-
-resource "null_resource" "this" {
-  count = !var.use_cloud_init_file ? 1 : 0
-
   connection {
     type        = "ssh"
     host        = var.ip_address
@@ -132,7 +119,12 @@ resource "null_resource" "this" {
     ]
   }
 
-  depends_on = [
-    proxmox_virtual_environment_vm.this
-  ]
+  lifecycle {
+    ignore_changes = [
+      cpu[0].cores,
+      disk[0].size,
+      network_device[0].bridge,
+      initialization[0].user_data_file_id,
+    ]
+  }
 }
