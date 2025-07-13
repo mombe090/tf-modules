@@ -197,3 +197,14 @@ variable "user_config" {
   description = "Cloud-init configuration file content"
   sensitive   = true
 }
+
+variable "get_github_keys" {
+  type        = bool
+  description = "Get public keys from GitHub"
+  default     = true
+
+  validation {
+    condition     = var.get_github_keys || length(var.user_config.ssh_public_keys) > 0
+    error_message = "Either get_github_keys must be true or user_config.ssh_public_keys must not be empty."
+  }
+}
