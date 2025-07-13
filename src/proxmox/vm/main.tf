@@ -1,32 +1,3 @@
-locals {
-  ssh_keys = distinct(
-    compact(
-      sort(concat(
-        [for key in split("\n", trimspace(data.http.get_github_public_key[0].response_body)) : trimspace(key) if trimspace(key) != ""],
-        var.user_config.ssh_public_keys
-      ))
-    )
-  )
-}
-
-data "http" "get_github_public_key" {
-  count = var.get_github_keys ? 1 : 0
-
-  url = "https://github.com/${var.user_config.username}.keys"
-
-  # Optional request headers
-  request_headers = {
-    Accept = "application/json"
-  }
-
-  lifecycle {
-    postcondition {
-      condition     = contains([200], self.status_code)
-      error_message = "Status code invalid"
-    }
-  }
-}
-
 ################################################################################################################################
 #  Download VM Image from URL to Proxmox Datastore                                                                             #
 #  url: https://search.opentofu.org/provider/bpg/proxmox/latest/docs/resources/virtual_environment_download_file#example-usage #
@@ -56,7 +27,7 @@ resource "proxmox_virtual_environment_file" "cloud_init_file" {
       fully_qualified_domain_name = "${var.name}.${var.domain}"
       root_password               = var.user_config.root_password
       user_password               = var.user_config.user_password
-      ssh_public_keys             = local.ssh_keys
+      ssh_public_keys             = var.user_config.ssh_public_keys
     })
 
     file_name = "${replace(var.name, "-", "_")}_cloud_init.yaml"
@@ -119,7 +90,7 @@ resource "proxmox_virtual_environment_vm" "this" {
       content {
         username = var.user_config.username
         password = var.user_config.user_password
-        keys     = local.ssh_keys
+        keys     = var.user_config.ssh_public_keys
       }
     }
   }
@@ -144,16 +115,16 @@ resource "proxmox_virtual_environment_vm" "this" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x install_guest_agent.sh",
-      "sudo ./install_guest_agent.sh"
+      "sudo ./install_guest_agent.sh ${var.get_github_keys ? var.user_config.username : ""}"
     ]
   }
 
-  /*  lifecycle {
+  lifecycle {
     ignore_changes = [
       cpu[0].cores,
       disk[0].size,
       network_device[0].bridge,
       initialization[0].user_data_file_id,
     ]
-  }*/
+  }
 }
