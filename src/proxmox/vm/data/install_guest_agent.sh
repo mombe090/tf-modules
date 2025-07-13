@@ -3,6 +3,7 @@
 # Script to install QEMU Guest Agent and optionally setup GitHub SSH keys
 # Supports Debian family (Ubuntu, Debian) and Red Hat family (RHEL, CentOS, Fedora, Rocky, AlmaLinux)
 # Usage: ./install_guest_agent.sh [github_username]
+# If github_username is provided, the script will download SSH keys from GitHub for that user
 
 set -euo pipefail
 
@@ -92,20 +93,19 @@ wait_for_apt_lock() {
 # Function to setup SSH keys from GitHub
 setup_github_ssh_keys() {
     local github_username="$1"
-    local target_user="$2"
     local user_home
 
-    log_info "Setting up SSH keys for user '$target_user' from GitHub user '$github_username'..."
+    log_info "Setting up SSH keys for user '$github_username' from GitHub..."
 
     # Get the user's home directory
-    if ! user_home=$(getent passwd "$target_user" | cut -d: -f6); then
-        log_error "User '$target_user' does not exist on this system"
+    if ! user_home=$(getent passwd "$github_username" | cut -d: -f6); then
+        log_error "User '$github_username' does not exist on this system"
         return 1
     fi
 
     # Check if user home directory exists
     if [[ ! -d "$user_home" ]]; then
-        log_error "Home directory '$user_home' does not exist for user '$target_user'"
+        log_error "Home directory '$user_home' does not exist for user '$github_username'"
         return 1
     fi
 
@@ -114,7 +114,7 @@ setup_github_ssh_keys() {
     if [[ ! -d "$ssh_dir" ]]; then
         log_info "Creating SSH directory: $ssh_dir"
         mkdir -p "$ssh_dir"
-        chown "$target_user:$(id -gn "$target_user")" "$ssh_dir"
+        chown "$github_username:$(id -gn "$github_username")" "$ssh_dir"
         chmod 700 "$ssh_dir"
     fi
 
@@ -172,7 +172,7 @@ setup_github_ssh_keys() {
     # Create authorized_keys if it doesn't exist
     if [[ ! -f "$authorized_keys_file" ]]; then
         touch "$authorized_keys_file"
-        chown "$target_user:$(id -gn "$target_user")" "$authorized_keys_file"
+        chown "$github_username:$(id -gn "$github_username")" "$authorized_keys_file"
         chmod 600 "$authorized_keys_file"
     fi
 
@@ -201,7 +201,7 @@ setup_github_ssh_keys() {
 
     if [[ $added_keys -gt 0 ]]; then
         log_info "Successfully added $added_keys SSH key(s) to $authorized_keys_file"
-        log_info "SSH key setup completed for user '$target_user'"
+        log_info "SSH key setup completed for user '$github_username'"
     else
         log_warn "No new SSH keys were added (all keys already existed)"
     fi
@@ -268,27 +268,11 @@ verify_installation() {
 # Main execution
 main() {
     local github_username=""
-    local target_user="root"  # Default to root user
 
     # Parse command line arguments
     if [[ $# -gt 0 ]]; then
         github_username="$1"
         log_info "GitHub username provided: $github_username"
-
-        # If a second argument is provided, use it as the target user
-        if [[ $# -gt 1 ]]; then
-            target_user="$2"
-            log_info "Target user specified: $target_user"
-        else
-            # Try to detect a non-root user with a home directory
-            for user in $(getent passwd | awk -F: '$3 >= 1000 && $3 < 65534 {print $1}'); do
-                if [[ -d "/home/$user" ]]; then
-                    target_user="$user"
-                    log_info "Auto-detected target user: $target_user"
-                    break
-                fi
-            done
-        fi
     fi
 
     log_info "Starting QEMU Guest Agent installation..."
@@ -345,7 +329,7 @@ main() {
 
     # Setup GitHub SSH keys if username was provided
     if [[ -n "$github_username" ]]; then
-        if setup_github_ssh_keys "$github_username" "$target_user"; then
+        if setup_github_ssh_keys "$github_username"; then
             log_info "SSH key setup completed successfully!"
         else
             log_warn "SSH key setup failed, but guest agent installation was successful"

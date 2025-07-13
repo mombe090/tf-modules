@@ -1,3 +1,8 @@
+# Local values for consistent tag handling
+locals {
+  sorted_tags = sort(distinct(var.tags))
+}
+
 ################################################################################################################################
 #  Download VM Image from URL to Proxmox Datastore                                                                             #
 #  url: https://search.opentofu.org/provider/bpg/proxmox/latest/docs/resources/virtual_environment_download_file#example-usage #
@@ -44,7 +49,7 @@ resource "proxmox_virtual_environment_vm" "this" {
   node_name = var.pve_node
   agent { enabled = true }
   description     = var.description
-  tags            = sort(var.tags)
+  tags            = local.sorted_tags
   on_boot         = var.on_boot
   stop_on_destroy = true
   protection      = var.protection
@@ -119,12 +124,29 @@ resource "proxmox_virtual_environment_vm" "this" {
     ]
   }
 
-  /*lifecycle {
+  lifecycle {
     ignore_changes = [
-      cpu[0].cores,
-      disk[0].size,
-      network_device[0].bridge,
-      initialization[0].user_data_file_id,
+      # Ignore computed/dynamic attributes that change on every plan
+      id,
+      ipv4_addresses,
+      ipv6_addresses,
+      mac_addresses,
+      network_interface_names,
+
+      # Ignore sensitive user account changes to prevent forced replacement
+      initialization[0].user_account[0].keys,
+      initialization[0].user_account[0].password,
+      initialization[0].interface,
+
+      # Ignore network device computed values
+      network_device[0].mac_address,
+      network_device[0].disconnected,
+
+      # Ignore disk path changes
+      disk[0].path_in_datastore,
+
+      # Ignore CPU flags
+      cpu[0].flags,
     ]
-  }*/
+  }
 }
