@@ -25,7 +25,7 @@ resource "proxmox_virtual_environment_file" "cloud_init_file" {
   node_name    = var.pve_node
 
   source_raw {
-    data = templatefile("./data/cloud_init.yaml.tftpl", {
+    data = templatefile("${path.module}/data/cloud_init.yaml.tftpl", {
       timezone                    = var.timezone
       username                    = var.user_config.username
       hostname                    = var.name
