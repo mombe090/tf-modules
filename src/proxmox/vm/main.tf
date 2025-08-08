@@ -141,6 +141,13 @@ resource "proxmox_virtual_environment_vm" "this" {
 
       # Ignore CPU
       cpu,
+
+      vga,
+      network_interface_names,
+      ipv4_addresses,
+      ipv6_addresses
+
+
     ]
   }
 }
