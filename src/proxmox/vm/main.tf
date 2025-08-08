@@ -134,6 +134,10 @@ resource "proxmox_virtual_environment_vm" "this" {
       initialization[0].user_account[0].keys,
       initialization[0].user_account[0].password,
       initialization[0].interface,
+      initialization[0].ip_config[0].ipv4[0].address,
+      initialization[0].ip_config[0].ipv4[0].gateway,
+      initialization[0].dns[0].domain,
+      initialization[0].dns[0].servers,
 
       # Ignore network device computed values
       network_device[0].mac_address,
