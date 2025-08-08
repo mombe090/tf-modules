@@ -131,23 +131,16 @@ resource "proxmox_virtual_environment_vm" "this" {
       mac_addresses,
 
       # Ignore sensitive user account changes to prevent forced replacement
-      initialization[0].user_account[0].keys,
-      initialization[0].user_account[0].password,
-      initialization[0].interface,
-      initialization[0].ip_config[0].ipv4[0].address,
-      initialization[0].ip_config[0].ipv4[0].gateway,
-      initialization[0].dns[0].domain,
-      initialization[0].dns[0].servers,
+      initialization,
 
       # Ignore network device computed values
-      network_device[0].mac_address,
-      network_device[0].disconnected,
+      network_device,
 
       # Ignore disk path changes
-      disk[0].path_in_datastore,
+      disk,
 
-      # Ignore CPU flags
-      cpu[0].flags,
+      # Ignore CPU
+      cpu,
     ]
   }
 }
