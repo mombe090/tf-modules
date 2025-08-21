@@ -130,6 +130,8 @@ resource "proxmox_virtual_environment_vm" "this" {
       initialization[0].user_account[0].keys,
       initialization[0].user_account[0].password,
       initialization[0].interface,
+      initialization[0].datastore_id,
+      disk,
       # If you want to ignore DNS server changes (optional):
       initialization[0].dns[0].servers,
       # If you want to ignore tags changes (optional):
