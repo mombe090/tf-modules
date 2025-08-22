@@ -93,7 +93,7 @@ variable "template_datastore_id" {
 variable "template_name" {
   type        = string
   description = "Name of the template for this LxC Container"
-  default     = "ubuntu-24.04-standard_24.04-2_amd64.tar.zst"
+  default     = "ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
 }
 
 variable "data_store" {
