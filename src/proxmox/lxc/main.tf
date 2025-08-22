@@ -63,7 +63,7 @@ resource "proxmox_virtual_environment_container" "ubuntu_container" {
   }
 
   operating_system {
-    template_file_id = var.download_image ? proxmox_virtual_environment_download_file.this[0].id : "local:vztmpl/${element(split("/", var.image_url), length(split("/", var.image_url)) - 1)}"
+    template_file_id = var.image_url != null ? proxmox_virtual_environment_download_file.this[0].id : "${var.template_datastore_id}:vztmpl/${var.template_name}"
     # Or you can use a volume ID, as obtained from a "pvesm list <storage>"
     #template_file_id = "local:vztmpl/ubuntu-24.04-standard_24.04-2_amd64.tar.zst"
     type = var.distribution_type
@@ -71,7 +71,7 @@ resource "proxmox_virtual_environment_container" "ubuntu_container" {
 }
 
 resource "proxmox_virtual_environment_download_file" "this" {
-  count = var.download_image ? 1 : 0
+  count = var.image_url != null ? 1 : 0
 
   content_type = "vztmpl"
   datastore_id = "local"

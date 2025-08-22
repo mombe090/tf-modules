@@ -81,7 +81,19 @@ variable "pve_port" {
 variable "image_url" {
   type        = string
   description = "URL for this LxC Container"
-  default     = "http://download.proxmox.com/images/system/ubuntu-20.04-standard_20.04-1_amd64.tar.gz"
+  default     = null
+}
+
+variable "template_datastore_id" {
+  description = "The datastore ID where the template is stored"
+  type        = string
+  default     = "local"
+}
+
+variable "template_name" {
+  type        = string
+  description = "Name of the template for this LxC Container"
+  default     = "ubuntu-24.04-standard_24.04-2_amd64.tar.zst"
 }
 
 variable "data_store" {
@@ -106,10 +118,4 @@ variable "password" {
   type        = string
   description = "Password for this LxC Container"
   sensitive   = true
-}
-
-variable "download_image" {
-  type        = bool
-  description = "Download image for this LxC Container"
-  default     = true
 }
