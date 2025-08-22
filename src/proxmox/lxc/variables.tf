@@ -119,3 +119,9 @@ variable "password" {
   description = "Password for this LxC Container"
   sensitive   = true
 }
+
+variable "unprivileged" {
+  type        = bool
+  description = "Whether to create an unprivileged container"
+  default     = true
+}

@@ -68,6 +68,8 @@ resource "proxmox_virtual_environment_container" "ubuntu_container" {
     #template_file_id = "local:vztmpl/ubuntu-24.04-standard_24.04-2_amd64.tar.zst"
     type = var.distribution_type
   }
+
+  unprivileged = var.unprivileged
 }
 
 resource "proxmox_virtual_environment_download_file" "this" {
