@@ -17,6 +17,7 @@ else
 
     echo "Téléchargement du fichier image Talos Linux"
     curl -o $raw_filename.xz $1
+    echo "Downloaded "
 
     echo "Décompression du fichier image Talos Linux"
     xz -d $raw_filename.xz
