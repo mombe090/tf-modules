@@ -18,16 +18,3 @@ terraform {
     }
   }
 }
-
-provider "proxmox" {
-  endpoint = "https://${var.proxmox_server_ip_adresse}:${var.proxmox_server_port}/"
-
-  # si vous avez un certificat auto-signé, il faut mettre cette ligne à true
-  insecure = true
-
-  # bgp utilise un accès pour exécuter la cli de proxmox qm/pvesm ... pour créer les VM car l'API est limité.
-  # Il faut noter qu'avec l'adoption en masse de proxmox, l'API vas surement être amélioré.
-  ssh {
-    agent = true
-  }
-}
