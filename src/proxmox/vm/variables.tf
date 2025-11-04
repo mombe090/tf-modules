@@ -210,20 +210,8 @@ variable "get_github_keys" {
   }
 }
 
-variable "enable_connection" {
+variable "is_talos_vm" {
   type        = bool
-  description = "Enable connection for this VM"
-  default     = true
-}
-
-variable "enable_file_provisioner" {
-  type        = bool
-  description = "Enable file provisioner for this VM"
-  default     = true
-}
-
-variable "enable_remote_exec" {
-  type        = bool
-  description = "Enable remote exec for this VM"
-  default     = true
+  description = "Is this VM for Talos OS"
+  default     = false
 }
