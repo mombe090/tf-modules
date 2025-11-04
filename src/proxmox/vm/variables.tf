@@ -196,6 +196,7 @@ variable "user_config" {
   })
   description = "Cloud-init configuration file content"
   sensitive   = true
+  default     = null
 }
 
 variable "get_github_keys" {

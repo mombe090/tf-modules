@@ -11,12 +11,15 @@ installer_image_url=$1
 if [[ -f "$pve_iso_path/$image_name" && $2 == "false" ]]; then
     echo "$1 existe déjà"
 else
-    raw_filename="talos-nocloud-amd64.raw"
+    echo "image url $1"
+    raw_filename="nocloud-amd64.raw"
     echo "Installation si nécessaire du package xz-utils qui permet de décompresser les fichiers .xz"
     sudo apt-get install xz-utils -y
 
+    echo "raw filename $raw_filename"
+
     echo "Téléchargement du fichier image Talos Linux"
-    curl -o $raw_filename.xz $1
+    wget $1
     echo "Downloaded "
 
     echo "Décompression du fichier image Talos Linux"

@@ -1,7 +1,7 @@
 variable "talos_image_version" {
   type        = string
   description = "Talos image version"
-  default     = "v1.9.5"
+  default     = "v1.11.3"
 }
 
 variable "refresh_talos_image_in_proxmox" {
