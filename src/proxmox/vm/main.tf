@@ -104,35 +104,27 @@ resource "proxmox_virtual_environment_vm" "this" {
     type = var.operating_system
   }
 
-  dynamic "connection" {
-    for_each = var.enable_connection ? [1] : []
-    content {
-      type        = "ssh"
-      host        = var.ip_address
-      user        = var.user_config.username
-      private_key = file(var.ssh_private_key_path)
-      timeout     = "5m"
-    }
+  connection {
+    count = var.enable_connection ? 1 : 0
+
+    type        = "ssh"
+    host        = var.ip_address
+    user        = var.user_config.username
+    private_key = file(var.ssh_private_key_path)
+    timeout     = "5m"
   }
 
-  dynamic "provisioner" {
-    for_each = var.enable_file_provisioner ? [1] : []
-    content {
-      type        = "file"
-      source      = "${path.module}/data/install_guest_agent.sh"
-      destination = "install_guest_agent.sh"
-    }
+  provisioner "file" {
+    count       = var.enable_file_provisioner ? 1 : 0
+    source      = "${path.module}/data/install_guest_agent.sh"
+    destination = "install_guest_agent.sh"
   }
 
-  dynamic "provisioner" {
-    for_each = var.enable_remote_exec ? [1] : []
-    content {
-      type = "remote-exec"
-      inline = [
-        "chmod +x install_guest_agent.sh",
-        "sudo ./install_guest_agent.sh ${var.get_github_keys ? var.user_config.username : ""}"
-      ]
-    }
+  provisioner "remote-exec" {
+    inline = var.enable_file_provisioner ? [
+      "chmod +x install_guest_agent.sh",
+      "sudo ./install_guest_agent.sh ${var.get_github_keys ? var.user_config.username : ""}"
+    ] : []
   }
 
   lifecycle {
