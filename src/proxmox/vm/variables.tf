@@ -209,3 +209,21 @@ variable "get_github_keys" {
     error_message = "Either get_github_keys must be true or user_config.ssh_public_keys must not be empty."
   }
 }
+
+variable "enable_connection" {
+  type        = bool
+  description = "Enable connection for this VM"
+  default     = true
+}
+
+variable "enable_file_provisioner" {
+  type        = bool
+  description = "Enable file provisioner for this VM"
+  default     = true
+}
+
+variable "enable_remote_exec" {
+  type        = bool
+  description = "Enable remote exec for this VM"
+  default     = true
+}
