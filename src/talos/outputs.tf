@@ -16,7 +16,8 @@ output "talos_client_config" {
 
 output "talos_client_config_yaml" {
   description = "Talos client configuration in YAML format"
-  value       = data.talos_client_configuration.this.talos_config_yaml
+  value       = data.talos_machine_configuration.this["controlplane"].machine_configuration
+  sensitive   = true
 }
 
 output "k8s_config" {
