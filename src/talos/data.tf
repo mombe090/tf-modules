@@ -59,7 +59,7 @@ data "talos_machine_configuration" "this" {
 # This will wait until the cluster is healthy and all nodes are ready.                                     #
 # see: https://search.opentofu.org/provider/siderolabs/talos/latest/docs/datasources/cluster_health        #
 ############################################################################################################
-data "talos_cluster_health" "this" {
+/* data "talos_cluster_health" "this" {
   client_configuration = data.talos_client_configuration.this.client_configuration
   control_plane_nodes  = [for k, v in var.nodes : v.ip if v.role == "controlplane"]
   worker_nodes         = [for k, v in var.nodes : v.ip if v.role != "controlplane"]
@@ -72,4 +72,4 @@ data "talos_cluster_health" "this" {
     talos_machine_configuration_apply.this,
     talos_machine_bootstrap.this
   ]
-}
+} */
