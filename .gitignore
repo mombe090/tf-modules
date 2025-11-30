@@ -51,3 +51,12 @@ terraform.rc
 #Ignore Kubeconfig files
 kube_config
 opencodetmp/
+
+# Ignore large binary and compressed files
+*.raw
+*.raw.xz
+*.raw.gz
+*.iso
+*.qcow2
+*.vmdk
+*.vdi
